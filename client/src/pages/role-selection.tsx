@@ -62,7 +62,7 @@ const RoleSelection = () => {
       <div className="max-w-6xl w-full flex-1 flex flex-col justify-center">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-white mb-4 font-mono">
-            BE-A-BETTER-TM
+            The Radical Toastmaster
           </h1>
           <p className="text-lg text-white/80">
             Warning: Don't use this if you enjoy making your life harder.
