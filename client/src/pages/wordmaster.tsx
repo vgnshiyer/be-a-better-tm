@@ -19,6 +19,10 @@ interface WordUsageRow {
   sentence: string;
 }
 
+const script = `
+As the Wordmaster, I introduce a new word for the meeting participants to use in their speeches and conversations. This helps expand vocabulary and encourages creative word usage. At the end of the meeting, I will provide a report.
+`
+
 const Wordmaster = () => {
   const [data, setData] = useLocalStorage<WordmasterData>('wordmasterData', {
     word: '',
@@ -115,7 +119,7 @@ const Wordmaster = () => {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            As the Wordmaster, you introduce a new word for the meeting participants to use in their speeches and conversations. This helps expand vocabulary and encourages creative word usage.
+            {script}
           </p>
         </CardContent>
       </Card>
@@ -171,7 +175,7 @@ const Wordmaster = () => {
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="text-xl font-semibold text-foreground">
-            Usage Tracker
+            Tracker
           </CardTitle>
         </CardHeader>
         <CardContent>

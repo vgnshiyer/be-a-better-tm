@@ -23,7 +23,7 @@ const RoleSelection = () => {
     {
       id: 'timer',
       name: 'Timer', 
-      description: 'Manage speech timing with color signals',
+      description: 'Manage speech timings',
       icon: Clock,
       path: '/timer'
     },

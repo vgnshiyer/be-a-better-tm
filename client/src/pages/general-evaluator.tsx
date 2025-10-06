@@ -1,11 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Save } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { useToast } from "@/hooks/use-toast";
 
 interface GeneralEvaluatorData {
   checkboxes: {
@@ -24,8 +21,11 @@ interface GeneralEvaluatorData {
   };
 }
 
+const script = `
+As the General Evaluator, I evaluate the entire meeting, including the Toastmaster, Speech Evaluations, Table Topics Master, and General Comments. I will note both successful elements and areas for improvement. At the end of the meeting, I will provide a report.
+`
+
 const GeneralEvaluator = () => {
-  const { toast } = useToast();
   const [data, setData] = useLocalStorage<GeneralEvaluatorData>('generalEvaluatorData', {
     checkboxes: {
       startTime: false,
@@ -63,13 +63,6 @@ const GeneralEvaluator = () => {
     }));
   };
 
-  const saveEvaluation = () => {
-    toast({
-      title: "Evaluation Saved",
-      description: "Your general evaluation has been saved successfully."
-    });
-  };
-
   const checkboxItems = [
     { key: 'startTime' as const, label: 'Meeting started on time' },
     { key: 'greeting' as const, label: 'Guests greeted properly' },
@@ -89,7 +82,7 @@ const GeneralEvaluator = () => {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            As the General Evaluator, you evaluate the entire meeting, noting both successful elements and areas for improvement.
+            {script}
           </p>
         </CardContent>
       </Card>
@@ -190,15 +183,6 @@ const GeneralEvaluator = () => {
             />
           </CardContent>
         </Card>
-
-        <Button 
-          onClick={saveEvaluation}
-          className="w-full md:w-auto px-6 py-3 text-lg font-semibold"
-          data-testid="button-submit-evaluation"
-        >
-          <Save className="mr-2 h-4 w-4" />
-          Submit Evaluation
-        </Button>
       </div>
     </div>
   );
