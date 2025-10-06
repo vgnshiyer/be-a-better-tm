@@ -65,7 +65,7 @@ const RoleSelection = () => {
             BE-A-BETTER-TM
           </h1>
           <p className="text-lg text-white/80">
-            Warning: Don't use this if you enjoy making life harder.
+            Warning: Don't use this if you enjoy making your life harder.
           </p>
         </div>
 
