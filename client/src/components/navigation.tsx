@@ -11,13 +11,13 @@ const Navigation = () => {
     "/wordmaster": "Wordmaster",
     "/grammarian": "Grammarian",
     "/general-evaluator": "General Evaluator",
-    "/table-topics": "Table Topics Master"
+    "/speech-evaluator": "Speech Evaluator"
   };
 
   const currentRole = roleNames[location];
   
   const goHome = () => {
-    setLocation("/");
+    setLocation("~/");
   };
 
   const resetAllData = () => {
