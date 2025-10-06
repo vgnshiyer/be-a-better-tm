@@ -4,7 +4,7 @@ import path from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: process.env.NODE_ENV === "production" ? "/be-a-better-tm/" : "/",
+  base: process.env.NODE_ENV === "production" ? "/be-a-better-tm" : "/",
   plugins: [
     react(),
     runtimeErrorOverlay(),
