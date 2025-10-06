@@ -7,7 +7,6 @@ export interface TimerConfig {
 export interface TimerState {
   seconds: number;
   isRunning: boolean;
-  intervalId?: NodeJS.Timeout;
 }
 
 export const timerConfigs: Record<string, TimerConfig> = {
