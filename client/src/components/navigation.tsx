@@ -15,7 +15,12 @@ const Navigation = () => {
     "/speech-evaluator": "Speech Evaluator"
   };
 
-  const currentRole = roleNames[location];
+  // Strip base path from location if it exists to match role names
+  const normalizedLocation = basePath !== '/' && location.startsWith(basePath) 
+    ? location.slice(basePath.length) 
+    : location;
+  
+  const currentRole = roleNames[normalizedLocation];
 
   const resetAllData = () => {
     if (confirm("Are you sure you want to reset all data? This action cannot be undone.")) {
