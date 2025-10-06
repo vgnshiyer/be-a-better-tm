@@ -43,7 +43,7 @@ const Navigation = () => {
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               <Home className="mr-2 h-4 w-4" />
-              Home
+              Roles
             </Button>
             <span className="text-muted-foreground">|</span>
             <span className="text-lg font-semibold text-foreground" data-testid="text-current-role">

@@ -1,11 +1,11 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Save } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { useToast } from "@/hooks/use-toast";
+import { Download, Plus, Trash2 } from "lucide-react";
+import { useEffect } from "react";
 
 interface WordmasterData {
   word: string;
@@ -13,13 +13,19 @@ interface WordmasterData {
   example: string;
 }
 
+interface WordUsageRow {
+  id: string;
+  name: string;
+  sentence: string;
+}
+
 const Wordmaster = () => {
-  const { toast } = useToast();
   const [data, setData] = useLocalStorage<WordmasterData>('wordmasterData', {
     word: '',
     meaning: '',
     example: ''
   });
+  const [usageData, setUsageData] = useLocalStorage<WordUsageRow[]>('wordmasterUsageData', []);
 
   const updateField = (field: keyof WordmasterData, value: string) => {
     setData(prev => ({
@@ -28,21 +34,76 @@ const Wordmaster = () => {
     }));
   };
 
-  const saveWord = () => {
-    if (!data.word.trim()) {
-      toast({
-        title: "Word Required",
-        description: "Please enter a word of the day.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    toast({
-      title: "Word Saved",
-      description: "Word of the day has been saved successfully."
-    });
+  const addRow = () => {
+    const newRow: WordUsageRow = {
+      id: Date.now().toString(),
+      name: `Speaker ${usageData.length + 1}`,
+      sentence: '',
+    };
+    setUsageData([...usageData, newRow]);
   };
+
+  const deleteRow = (id: string) => {
+    setUsageData(usageData.filter(row => row.id !== id));
+  };
+
+  const updateName = (id: string, name: string) => {
+    setUsageData(usageData.map(row => 
+      row.id === id ? { ...row, name } : row
+    ));
+  };
+
+  const updateSentence = (id: string, sentence: string) => {
+    setUsageData(usageData.map(row => 
+      row.id === id ? { ...row, sentence } : row
+    ));
+  };
+
+  const downloadCSV = () => {
+    // Create CSV header
+    const headers = ['Name', 'Sentence with Word'];
+    
+    // Create CSV rows
+    const rows = usageData.map(row => [
+      row.name,
+      `"${row.sentence.replace(/"/g, '""')}"` // Escape quotes in sentences
+    ]);
+    
+    // Add word info at the top
+    const wordInfo = [
+      ['Word of the Day', data.word],
+      ['Meaning', `"${data.meaning.replace(/"/g, '""')}"`],
+      ['Example', `"${data.example.replace(/"/g, '""')}"`],
+      [], // Empty row
+    ];
+    
+    // Combine all parts
+    const csvContent = [
+      ...wordInfo.map(row => row.join(',')),
+      headers.join(','),
+      ...rows.map(row => row.join(','))
+    ].join('\n');
+    
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `wordmaster-report-${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Initialize with one row if empty
+  useEffect(() => {
+    if (usageData.length === 0) {
+      addRow();
+    }
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-testid="wordmaster-page">
@@ -59,106 +120,162 @@ const Wordmaster = () => {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-xl font-semibold text-foreground">
-              Word Setup
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="wordOfDay" className="text-sm font-medium text-foreground mb-2">
-                Word of the Day
-              </Label>
-              <Input
-                id="wordOfDay"
-                value={data.word}
-                onChange={(e) => updateField('word', e.target.value)}
-                placeholder="Enter word..."
-                data-testid="input-word"
-              />
-            </div>
-            <div>
-              <Label htmlFor="wordMeaning" className="text-sm font-medium text-foreground mb-2">
-                Meaning
-              </Label>
-              <Textarea
-                id="wordMeaning"
-                value={data.meaning}
-                onChange={(e) => updateField('meaning', e.target.value)}
-                rows={3}
-                placeholder="Define the word..."
-                data-testid="textarea-meaning"
-              />
-            </div>
-            <div>
-              <Label htmlFor="wordExample" className="text-sm font-medium text-foreground mb-2">
-                Example Sentence
-              </Label>
-              <Textarea
-                id="wordExample"
-                value={data.example}
-                onChange={(e) => updateField('example', e.target.value)}
-                rows={3}
-                placeholder="Use the word in a sentence..."
-                data-testid="textarea-example"
-              />
-            </div>
-            <Button 
-              onClick={saveWord} 
-              className="w-full"
-              data-testid="button-save-word"
-            >
-              <Save className="mr-2 h-4 w-4" />
-              Save Word
-            </Button>
-          </CardContent>
-        </Card>
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="text-xl font-semibold text-foreground">
+            Word Setup
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label htmlFor="wordOfDay" className="text-sm font-medium text-foreground mb-2">
+              Word of the Day
+            </Label>
+            <Input
+              id="wordOfDay"
+              value={data.word}
+              onChange={(e) => updateField('word', e.target.value)}
+              placeholder="Enter word..."
+              data-testid="input-word"
+            />
+          </div>
+          <div>
+            <Label htmlFor="wordMeaning" className="text-sm font-medium text-foreground mb-2">
+              Meaning
+            </Label>
+            <Textarea
+              id="wordMeaning"
+              value={data.meaning}
+              onChange={(e) => updateField('meaning', e.target.value)}
+              rows={3}
+              placeholder="Define the word..."
+              data-testid="textarea-meaning"
+            />
+          </div>
+          <div>
+            <Label htmlFor="wordExample" className="text-sm font-medium text-foreground mb-2">
+              Example Sentence
+            </Label>
+            <Textarea
+              id="wordExample"
+              value={data.example}
+              onChange={(e) => updateField('example', e.target.value)}
+              rows={3}
+              placeholder="Use the word in a sentence..."
+              data-testid="textarea-example"
+            />
+          </div>
+        </CardContent>
+      </Card>
 
-        <Card className="bg-gradient-to-br from-primary/20 to-accent/20">
-          <CardHeader>
-            <CardTitle className="text-2xl font-semibold text-foreground font-serif">
-              Meeting Display
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <div className="text-sm uppercase tracking-wide text-muted-foreground mb-2">
-                Word of the Day
-              </div>
-              <div 
-                className="text-4xl font-bold text-foreground mb-4"
-                data-testid="display-word"
-              >
-                {data.word || '-'}
-              </div>
-            </div>
-            <div>
-              <div className="text-sm uppercase tracking-wide text-muted-foreground mb-2">
-                Meaning
-              </div>
-              <div 
-                className="text-lg text-foreground mb-4"
-                data-testid="display-meaning"
-              >
-                {data.meaning || '-'}
-              </div>
-            </div>
-            <div>
-              <div className="text-sm uppercase tracking-wide text-muted-foreground mb-2">
-                Example
-              </div>
-              <div 
-                className="text-base text-foreground italic"
-                data-testid="display-example"
-              >
-                {data.example || '-'}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="text-xl font-semibold text-foreground">
+            Usage Tracker
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="table-responsive overflow-x-auto">
+            <table className="w-full border-collapse" data-testid="table-wordmaster">
+              <thead>
+                <tr className="bg-muted">
+                  <th className="border border-border px-3 py-2 text-left text-sm font-semibold w-48">Name</th>
+                  <th className="border border-border px-3 py-2 text-left text-sm font-semibold">Sentence with Word</th>
+                  <th className="border border-border px-3 py-2 text-center text-sm font-semibold w-24">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {usageData.map((row) => (
+                  <tr key={row.id} data-testid={`row-speaker-${row.id}`}>
+                    <td className="border border-border px-3 py-2">
+                      <Input
+                        value={row.name}
+                        onChange={(e) => updateName(row.id, e.target.value)}
+                        className="w-full bg-transparent border-none focus:ring-2 focus:ring-ring"
+                        data-testid={`input-name-${row.id}`}
+                      />
+                    </td>
+                    <td className="border border-border px-3 py-2">
+                      <Textarea
+                        value={row.sentence}
+                        onChange={(e) => updateSentence(row.id, e.target.value)}
+                        className="w-full bg-transparent border-none focus:ring-2 focus:ring-ring min-h-[60px]"
+                        placeholder="Enter the sentence where they used the word..."
+                        data-testid={`textarea-sentence-${row.id}`}
+                      />
+                    </td>
+                    <td className="border border-border px-3 py-2 text-center">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => deleteRow(row.id)}
+                        className="text-destructive hover:text-destructive/80"
+                        data-testid={`button-delete-${row.id}`}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="flex gap-3 mt-4">
+            <Button 
+              onClick={addRow} 
+              data-testid="button-add-speaker"
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              Add Speaker
+            </Button>
+            <Button 
+              onClick={downloadCSV}
+              variant="outline"
+              disabled={usageData.length === 0}
+              data-testid="button-download-csv"
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Download CSV
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-xl font-semibold text-foreground">
+            Summary
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3" data-testid="summary-report">
+            {usageData.length > 0 && usageData.some(row => row.sentence.trim()) ? (
+              <>
+                <div className="p-3 bg-muted/30 rounded-lg">
+                  <p className="font-semibold">Word of the Day: {data.word || 'Not set'}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Total speakers who used the word: {usageData.filter(row => row.sentence.trim()).length}
+                  </p>
+                </div>
+                {usageData
+                  .filter(row => row.sentence.trim())
+                  .map((row, index) => (
+                    <div key={index} className="p-3 bg-muted/30 rounded-lg">
+                      <p className="font-semibold">{row.name}</p>
+                      <p className="text-sm text-muted-foreground italic mt-1">
+                        "{row.sentence}"
+                      </p>
+                    </div>
+                  ))}
+              </>
+            ) : (
+              <p className="text-muted-foreground">
+                Summary will appear here after tracking word usage...
+              </p>
+            )}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
