@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Home, RotateCcw } from "lucide-react";
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
 
 const Navigation = () => {
   const [location] = useLocation();
   
+  const basePath = import.meta.env.BASE_URL;
   const roleNames: Record<string, string> = {
     "/ah-counter": "Ah-Counter",
     "/timer": "Timer", 
@@ -32,7 +33,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-3">
-            <Link href="/">
+            <a href={basePath}>
               <Button 
                 variant="ghost" 
                 data-testid="button-home"
@@ -41,7 +42,7 @@ const Navigation = () => {
                 <Home className="mr-2 h-4 w-4" />
                 Roles
               </Button>
-            </Link>
+            </a>
             <span className="text-card-foreground/50">|</span>
             <span className="text-lg font-semibold text-card-foreground" data-testid="text-current-role">
               {currentRole || "Role Tracker"}
