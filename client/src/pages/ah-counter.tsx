@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Trash2, Plus } from "lucide-react";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { Download, Plus, Trash2 } from "lucide-react";
+import { useEffect } from "react";
 
 interface AhCounterRow {
   id: string;
@@ -19,6 +19,10 @@ interface AhCounterRow {
   falseStarts: number;
   other: number;
 }
+
+const script = `
+As the Ah-Counter, my role is to note words and sounds used as a crutch or pause filler by anyone who speaks during the meeting. Examples include: ah, um, er, well, so, you know, like, but, and repeating words or phrases. At the end of the meeting, I will provide a report.
+`
 
 const AhCounter = () => {
   const [data, setData] = useLocalStorage<AhCounterRow[]>('ahCounterData', []);
@@ -64,6 +68,52 @@ const AhCounter = () => {
            row.like + row.but + row.repeats + row.falseStarts + row.other;
   };
 
+  const getCellBackgroundColor = (count: number) => {
+    if (count > 10) return "bg-orange-200 dark:bg-orange-900/40";
+    if (count > 5) return "bg-yellow-200 dark:bg-yellow-900/40";
+    return "";
+  };
+
+  const downloadCSV = () => {
+    // Create CSV header
+    const headers = ['Name', 'Ah', 'Um', 'Er', 'Well', 'So', 'Like', 'But', 'Repeats', 'False Starts', 'Other', 'Total'];
+    
+    // Create CSV rows
+    const rows = data.map(row => [
+      row.name,
+      row.ah,
+      row.um,
+      row.er,
+      row.well,
+      row.so,
+      row.like,
+      row.but,
+      row.repeats,
+      row.falseStarts,
+      row.other,
+      getTotal(row)
+    ]);
+    
+    // Combine headers and rows
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.join(','))
+    ].join('\n');
+    
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `ah-counter-report-${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const generateSummary = () => {
     if (data.length === 0) return [];
     
@@ -106,7 +156,7 @@ const AhCounter = () => {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            As the Ah-Counter, your role is to note words and sounds used as a crutch or pause filler by anyone who speaks during the meeting. Examples include: ah, um, er, well, so, you know, like, but, and repeating words or phrases.
+            {script}
           </p>
         </CardContent>
       </Card>
@@ -114,7 +164,7 @@ const AhCounter = () => {
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="text-xl font-semibold text-foreground">
-            Tracking Table
+            Tracker
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -146,7 +196,7 @@ const AhCounter = () => {
                     {columns.map(col => (
                       <td 
                         key={col.key} 
-                        className="border border-border px-3 py-2 text-center editable-cell cursor-pointer hover:bg-muted/50"
+                        className={`border border-border px-3 py-2 text-center editable-cell cursor-pointer hover:bg-muted/50 transition-colors ${getCellBackgroundColor(row[col.key])}`}
                         onClick={() => incrementCell(row.id, col.key)}
                         data-testid={`cell-${col.key}-${row.id}`}
                       >
@@ -172,21 +222,31 @@ const AhCounter = () => {
               </tbody>
             </table>
           </div>
-          <Button 
-            onClick={addRow} 
-            className="mt-4" 
-            data-testid="button-add-speaker"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add Speaker
-          </Button>
+          <div className="flex gap-3 mt-4">
+            <Button 
+              onClick={addRow} 
+              data-testid="button-add-speaker"
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              Add Speaker
+            </Button>
+            <Button 
+              onClick={downloadCSV}
+              variant="outline"
+              disabled={data.length === 0}
+              data-testid="button-download-csv"
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Download CSV
+            </Button>
+          </div>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
           <CardTitle className="text-xl font-semibold text-foreground">
-            Summary Report
+            Summary
           </CardTitle>
         </CardHeader>
         <CardContent>
