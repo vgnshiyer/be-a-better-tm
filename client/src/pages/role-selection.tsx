@@ -58,14 +58,14 @@ const RoleSelection = () => {
   ];
 
   return (
-    <section className="min-h-screen flex items-center justify-center p-4" data-testid="role-selection-page">
-      <div className="max-w-6xl w-full">
+    <section className="min-h-screen flex flex-col items-center justify-center p-4" data-testid="role-selection-page">
+      <div className="max-w-6xl w-full flex-1 flex flex-col justify-center">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-foreground mb-4 font-mono">
-            BE-A-BETTER-TOASTMASTER
+            BE-A-BETTER-TM
           </h1>
           <p className="text-lg text-muted-foreground">
-            Select your role to begin tracking your meeting responsibilities
+            Warning: Don't use this if you enjoy making life harder.
           </p>
         </div>
 
@@ -97,6 +97,21 @@ const RoleSelection = () => {
           })}
         </div>
       </div>
+      
+      <footer className="w-full py-6 text-center">
+        <p className="text-sm text-muted-foreground font-semibold font-mono">
+          © Designed & vibe-coded by{' '}
+          <a 
+            href="https://vgnshiyer.me" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hover:text-primary transition-colors"
+          >
+            vgnshiyer
+          </a>
+          .
+        </p>
+      </footer>
     </section>
   );
 };
