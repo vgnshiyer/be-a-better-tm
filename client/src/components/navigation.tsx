@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Home, RotateCcw } from "lucide-react";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
 
 const Navigation = () => {
-  const [location, setLocation] = useLocation();
+  const [location] = useLocation();
   
   const roleNames: Record<string, string> = {
     "/ah-counter": "Ah-Counter",
@@ -15,10 +15,6 @@ const Navigation = () => {
   };
 
   const currentRole = roleNames[location];
-  
-  const goHome = () => {
-    setLocation("~/");
-  };
 
   const resetAllData = () => {
     if (confirm("Are you sure you want to reset all data? This action cannot be undone.")) {
@@ -36,15 +32,16 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-3">
-            <Button 
-              variant="ghost" 
-              onClick={goHome}
-              data-testid="button-home"
-              className="inline-flex items-center px-3 py-2 text-sm font-medium text-card-foreground hover:text-primary transition-colors"
-            >
-              <Home className="mr-2 h-4 w-4" />
-              Roles
-            </Button>
+            <Link href="/">
+              <Button 
+                variant="ghost" 
+                data-testid="button-home"
+                className="inline-flex items-center px-3 py-2 text-sm font-medium text-card-foreground hover:text-primary transition-colors"
+              >
+                <Home className="mr-2 h-4 w-4" />
+                Roles
+              </Button>
+            </Link>
             <span className="text-card-foreground/50">|</span>
             <span className="text-lg font-semibold text-card-foreground" data-testid="text-current-role">
               {currentRole || "Role Tracker"}
