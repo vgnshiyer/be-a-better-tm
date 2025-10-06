@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Trash2, Plus } from "lucide-react";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { Plus, Trash2 } from "lucide-react";
+import { useEffect } from "react";
 
 interface TableTopicRow {
   id: string;
@@ -108,7 +108,7 @@ const TableTopics = () => {
               <thead>
                 <tr className="bg-muted">
                   <th className="border border-border px-3 py-2 text-left text-sm font-semibold">Speaker Name</th>
-                  <th className="border border-border px-3 py-2 text-left text-sm font-semibold">Topic</th>
+                  <th className="border border-border px-3 py-2 text-left text-sm font-semibold">Answer</th>
                   <th className="border border-border px-3 py-2 text-center text-sm font-semibold">Actions</th>
                 </tr>
               </thead>
