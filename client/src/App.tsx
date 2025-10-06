@@ -10,21 +10,26 @@ import SpeechEvaluator from "@/pages/speech-evaluator";
 import Timer from "@/pages/timer";
 import Wordmaster from "@/pages/wordmaster";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Route, Switch } from "wouter";
+import { Route, Router, Switch } from "wouter";
 import { queryClient } from "./lib/queryClient";
 
-function Router() {
+// Get base path from environment
+const base = import.meta.env.BASE_URL;
+
+function AppRouter() {
   return (
-    <Switch>
-      <Route path="/" component={RoleSelection} />
-      <Route path="/ah-counter" component={AhCounter} />
-      <Route path="/timer" component={Timer} />
-      <Route path="/wordmaster" component={Wordmaster} />
-      <Route path="/grammarian" component={Grammarian} />
-      <Route path="/general-evaluator" component={GeneralEvaluator} />
-      <Route path="/speech-evaluator" component={SpeechEvaluator} />
-      <Route component={NotFound} />
-    </Switch>
+    <Router base={base}>
+      <Switch>
+        <Route path="/" component={RoleSelection} />
+        <Route path="/ah-counter" component={AhCounter} />
+        <Route path="/timer" component={Timer} />
+        <Route path="/wordmaster" component={Wordmaster} />
+        <Route path="/grammarian" component={Grammarian} />
+        <Route path="/general-evaluator" component={GeneralEvaluator} />
+        <Route path="/speech-evaluator" component={SpeechEvaluator} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
   );
 }
 
@@ -34,7 +39,7 @@ function App() {
       <TooltipProvider>
         <div className="min-h-screen">
           <Navigation />
-          <Router />
+          <AppRouter />
         </div>
         <Toaster />
       </TooltipProvider>
