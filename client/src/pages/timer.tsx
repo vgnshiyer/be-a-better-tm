@@ -203,9 +203,9 @@ const Timer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative" data-testid="timer-page">
         <Card className={`mb-6 transition-opacity duration-300 ${isRunning ? 'opacity-40' : 'opacity-100'}`}>
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-foreground font-serif">
-              Timer Role
-            </CardTitle>
+          <CardTitle className="text-2xl font-bold text-card-foreground font-serif">
+            Timer Role
+          </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
@@ -327,7 +327,7 @@ const Timer = () => {
                 <Input
                   id="speaker-name"
                   value={speakerName}
-                  className="bg-background text-foreground"
+                  className="bg-card text-card-foreground"
                   onChange={(e) => setSpeakerName(e.target.value)}
                   placeholder="Enter speaker name..."
                   disabled={isRunning}
@@ -368,7 +368,7 @@ const Timer = () => {
 
               <Button 
                 onClick={saveRecord}
-                className="w-full h-12 text-lg bg-primary text-primary-foreground hover:bg-primary/90"
+                className="w-full h-12 text-lg bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
                 variant="outline"
                 disabled={isRunning || seconds === 0}
                 data-testid="button-save-record"

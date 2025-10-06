@@ -86,7 +86,7 @@ const SpeechEvaluator = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-testid="speech-evaluator-page">
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-foreground font-serif">
+          <CardTitle className="text-2xl font-bold text-card-foreground font-serif">
             Speech Evaluator Role
           </CardTitle>
         </CardHeader>
@@ -99,13 +99,13 @@ const SpeechEvaluator = () => {
 
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold text-foreground">
+          <CardTitle className="text-xl font-semibold text-card-foreground">
             Speech Details
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="speakerName" className="text-sm font-medium text-foreground mb-2">
+            <Label htmlFor="speakerName" className="text-sm font-medium text-card-foreground mb-2">
               Speaker Name
             </Label>
             <Input
@@ -117,7 +117,7 @@ const SpeechEvaluator = () => {
             />
           </div>
           <div>
-            <Label htmlFor="speechTitle" className="text-sm font-medium text-foreground mb-2">
+            <Label htmlFor="speechTitle" className="text-sm font-medium text-card-foreground mb-2">
               Speech Title
             </Label>
             <Input
@@ -129,7 +129,7 @@ const SpeechEvaluator = () => {
             />
           </div>
           <div>
-            <Label htmlFor="pathwayProject" className="text-sm font-medium text-foreground mb-2">
+            <Label htmlFor="pathwayProject" className="text-sm font-medium text-card-foreground mb-2">
               Pathway Project
             </Label>
             <Input
@@ -145,7 +145,7 @@ const SpeechEvaluator = () => {
 
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold text-foreground">
+          <CardTitle className="text-xl font-semibold text-card-foreground">
             What to Look For
           </CardTitle>
         </CardHeader>
@@ -161,7 +161,7 @@ const SpeechEvaluator = () => {
                 />
                 <Label 
                   htmlFor={`chk_${item.key}`} 
-                  className="text-foreground cursor-pointer"
+                  className="text-card-foreground cursor-pointer"
                 >
                   {item.label}
                 </Label>
@@ -174,9 +174,9 @@ const SpeechEvaluator = () => {
       <div className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-foreground">
-              What Went Well
-            </CardTitle>
+          <CardTitle className="text-lg font-semibold text-card-foreground">
+            What Went Well
+          </CardTitle>
           </CardHeader>
           <CardContent>
             <Textarea
@@ -191,9 +191,9 @@ const SpeechEvaluator = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-foreground">
-              What Could Have Been Better
-            </CardTitle>
+          <CardTitle className="text-lg font-semibold text-card-foreground">
+            What Could Have Been Better
+          </CardTitle>
           </CardHeader>
           <CardContent>
             <Textarea
@@ -208,9 +208,9 @@ const SpeechEvaluator = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-foreground">
-              Best Thing About the Speech
-            </CardTitle>
+          <CardTitle className="text-lg font-semibold text-card-foreground">
+            Best Thing About the Speech
+          </CardTitle>
           </CardHeader>
           <CardContent>
             <Textarea

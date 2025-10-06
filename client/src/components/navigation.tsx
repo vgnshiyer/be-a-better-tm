@@ -40,13 +40,13 @@ const Navigation = () => {
               variant="ghost" 
               onClick={goHome}
               data-testid="button-home"
-              className="inline-flex items-center px-3 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+              className="inline-flex items-center px-3 py-2 text-sm font-medium text-card-foreground hover:text-primary transition-colors"
             >
               <Home className="mr-2 h-4 w-4" />
               Roles
             </Button>
-            <span className="text-muted-foreground">|</span>
-            <span className="text-lg font-semibold text-foreground" data-testid="text-current-role">
+            <span className="text-card-foreground/50">|</span>
+            <span className="text-lg font-semibold text-card-foreground" data-testid="text-current-role">
               {currentRole || "Role Tracker"}
             </span>
           </div>

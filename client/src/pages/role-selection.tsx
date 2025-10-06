@@ -61,10 +61,10 @@ const RoleSelection = () => {
     <section className="min-h-screen flex flex-col items-center justify-center p-4" data-testid="role-selection-page">
       <div className="max-w-6xl w-full flex-1 flex flex-col justify-center">
         <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-foreground mb-4 font-mono">
+          <h1 className="text-3xl font-bold text-white mb-4 font-mono">
             BE-A-BETTER-TM
           </h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-white/80">
             Warning: Don't use this if you enjoy making life harder.
           </p>
         </div>
@@ -84,7 +84,7 @@ const RoleSelection = () => {
                     <Icon className="text-2xl text-primary h-6 w-6" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-foreground mb-2">
+                    <h3 className="text-xl font-semibold text-card-foreground mb-2">
                       {role.name}
                     </h3>
                     <p className="text-sm text-muted-foreground">
@@ -99,13 +99,13 @@ const RoleSelection = () => {
       </div>
       
       <footer className="w-full py-6 text-center">
-        <p className="text-sm text-muted-foreground font-semibold font-mono">
+        <p className="text-sm text-white/70 font-semibold font-mono">
           © Designed & vibe-coded by{' '}
           <a 
             href="https://vgnshiyer.me" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="hover:text-primary transition-colors"
+            className="text-white/90 hover:text-white transition-colors"
           >
             vgnshiyer
           </a>

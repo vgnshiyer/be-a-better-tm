@@ -141,7 +141,7 @@ const Grammarian = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-testid="grammarian-page">
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-foreground font-serif">
+          <CardTitle className="text-2xl font-bold text-card-foreground font-serif">
             Grammarian Role
           </CardTitle>
         </CardHeader>
@@ -154,7 +154,7 @@ const Grammarian = () => {
 
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold text-foreground">
+          <CardTitle className="text-xl font-semibold text-card-foreground">
             Tracker
           </CardTitle>
         </CardHeader>
@@ -237,7 +237,7 @@ const Grammarian = () => {
 
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold text-foreground">
+          <CardTitle className="text-xl font-semibold text-card-foreground">
             Great Phrases / Words
           </CardTitle>
         </CardHeader>
@@ -300,7 +300,7 @@ const Grammarian = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl font-semibold text-foreground">
+          <CardTitle className="text-xl font-semibold text-card-foreground">
             Summary
           </CardTitle>
         </CardHeader>

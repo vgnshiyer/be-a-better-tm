@@ -113,7 +113,7 @@ const Wordmaster = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-testid="wordmaster-page">
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-foreground font-serif">
+          <CardTitle className="text-2xl font-bold text-card-foreground font-serif">
             Wordmaster Role
           </CardTitle>
         </CardHeader>
@@ -126,13 +126,13 @@ const Wordmaster = () => {
 
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold text-foreground">
+          <CardTitle className="text-xl font-semibold text-card-foreground">
             Word Setup
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="wordOfDay" className="text-sm font-medium text-foreground mb-2">
+            <Label htmlFor="wordOfDay" className="text-sm font-medium text-card-foreground mb-2">
               Word of the Day
             </Label>
             <Input
@@ -144,7 +144,7 @@ const Wordmaster = () => {
             />
           </div>
           <div>
-            <Label htmlFor="wordMeaning" className="text-sm font-medium text-foreground mb-2">
+            <Label htmlFor="wordMeaning" className="text-sm font-medium text-card-foreground mb-2">
               Meaning
             </Label>
             <Textarea
@@ -157,7 +157,7 @@ const Wordmaster = () => {
             />
           </div>
           <div>
-            <Label htmlFor="wordExample" className="text-sm font-medium text-foreground mb-2">
+            <Label htmlFor="wordExample" className="text-sm font-medium text-card-foreground mb-2">
               Example Sentence
             </Label>
             <Textarea
@@ -174,7 +174,7 @@ const Wordmaster = () => {
 
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold text-foreground">
+          <CardTitle className="text-xl font-semibold text-card-foreground">
             Tracker
           </CardTitle>
         </CardHeader>
@@ -247,7 +247,7 @@ const Wordmaster = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl font-semibold text-foreground">
+          <CardTitle className="text-xl font-semibold text-card-foreground">
             Summary
           </CardTitle>
         </CardHeader>

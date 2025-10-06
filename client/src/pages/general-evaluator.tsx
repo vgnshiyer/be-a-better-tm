@@ -76,7 +76,7 @@ const GeneralEvaluator = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-testid="general-evaluator-page">
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-foreground font-serif">
+          <CardTitle className="text-2xl font-bold text-card-foreground font-serif">
             General Evaluator Role
           </CardTitle>
         </CardHeader>
@@ -89,7 +89,7 @@ const GeneralEvaluator = () => {
 
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold text-foreground">
+          <CardTitle className="text-xl font-semibold text-card-foreground">
             Meeting Elements Checklist
           </CardTitle>
         </CardHeader>
@@ -105,7 +105,7 @@ const GeneralEvaluator = () => {
                 />
                 <Label 
                   htmlFor={`chk_${item.key}`} 
-                  className="text-foreground cursor-pointer"
+                  className="text-card-foreground cursor-pointer"
                 >
                   {item.label}
                 </Label>
@@ -118,7 +118,7 @@ const GeneralEvaluator = () => {
       <div className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-foreground">
+            <CardTitle className="text-lg font-semibold text-card-foreground">
               Toastmaster's Performance
             </CardTitle>
           </CardHeader>
@@ -135,7 +135,7 @@ const GeneralEvaluator = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-foreground">
+            <CardTitle className="text-lg font-semibold text-card-foreground">
               Speech Evaluations
             </CardTitle>
           </CardHeader>
@@ -152,7 +152,7 @@ const GeneralEvaluator = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-foreground">
+            <CardTitle className="text-lg font-semibold text-card-foreground">
               Table Topics Master Performance
             </CardTitle>
           </CardHeader>
@@ -169,7 +169,7 @@ const GeneralEvaluator = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-foreground">
+            <CardTitle className="text-lg font-semibold text-card-foreground">
               General Comments
             </CardTitle>
           </CardHeader>
