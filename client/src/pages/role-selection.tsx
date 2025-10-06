@@ -5,7 +5,7 @@ import {
   ClipboardCheck,
   Clock,
   ListChecks,
-  MessageSquare
+  Mic
 } from "lucide-react";
 import { useLocation } from "wouter";
 
@@ -49,11 +49,11 @@ const RoleSelection = () => {
       path: '/general-evaluator'
     },
     {
-      id: 'table-topics',
-      name: 'Table Topics Master',
-      description: 'Manage impromptu speaking sessions',
-      icon: MessageSquare,
-      path: '/table-topics'
+      id: 'speech-evaluator',
+      name: 'Speech Evaluator',
+      description: 'Provide detailed feedback on prepared speeches',
+      icon: Mic,
+      path: '/speech-evaluator'
     }
   ];
 
