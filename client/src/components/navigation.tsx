@@ -29,8 +29,9 @@ const Navigation = () => {
     }
   };
 
-  if (location === "/") {
-    return null; // Hide navigation on home page
+  // Hide navigation on home page (check normalized location)
+  if (normalizedLocation === "/" || normalizedLocation === "") {
+    return null;
   }
 
   return (
