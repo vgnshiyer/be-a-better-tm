@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { Download, Plus, Trash2 } from "lucide-react";
+import { ChevronDown, ChevronUp, Download, Plus, Trash2 } from "lucide-react";
 import { useEffect } from "react";
 
 interface AhCounterRow {
@@ -59,6 +59,14 @@ const AhCounter = () => {
     setData(data.map(row => 
       row.id === id 
         ? { ...row, [field]: (row[field] as number) + 1 }
+        : row
+    ));
+  };
+
+  const decrementCell = (id: string, field: keyof AhCounterRow) => {
+    setData(data.map(row => 
+      row.id === id 
+        ? { ...row, [field]: Math.max(0, (row[field] as number) - 1) }
         : row
     ));
   };
@@ -196,11 +204,32 @@ const AhCounter = () => {
                     {columns.map(col => (
                       <td 
                         key={col.key} 
-                        className={`border border-border px-3 py-2 text-center editable-cell cursor-pointer hover:bg-muted/50 transition-colors ${getCellBackgroundColor(row[col.key])}`}
-                        onClick={() => incrementCell(row.id, col.key)}
+                        className={`border border-border px-2 py-2 text-center ${getCellBackgroundColor(row[col.key])}`}
                         data-testid={`cell-${col.key}-${row.id}`}
                       >
-                        {row[col.key]}
+                        <div className="flex items-center justify-center gap-1">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              decrementCell(row.id, col.key);
+                            }}
+                            className="opacity-40 hover:opacity-100 transition-opacity p-0.5 bg-muted rounded-full"
+                            aria-label="Decrease count"
+                          >
+                            <ChevronDown className="h-3 w-3" />
+                          </button>
+                          <span className="min-w-[24px] font-medium">{row[col.key]}</span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              incrementCell(row.id, col.key);
+                            }}
+                            className="opacity-40 hover:opacity-100 transition-opacity p-0.5 bg-muted rounded-full"
+                            aria-label="Increase count"
+                          >
+                            <ChevronUp className="h-3 w-3" />
+                          </button>
+                        </div>
                       </td>
                     ))}
                     <td className="border border-border px-3 py-2 text-center font-semibold" data-testid={`text-total-${row.id}`}>
