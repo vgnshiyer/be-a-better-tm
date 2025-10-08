@@ -100,7 +100,7 @@ const RoleSelection = () => {
       
       <footer className="w-full py-6 text-center">
         <p className="text-sm text-white/70 font-semibold font-mono">
-          © Designed & vibe-coded by{' '}
+          © Designed & <a href="https://github.com/vgnshiyer/the-radical-tm" target="_blank" rel="noopener noreferrer" className="text-white/90 hover:text-white transition-colors">vibe-coded</a> by{' '}
           <a 
             href="https://vgnshiyer.me" 
             target="_blank" 
