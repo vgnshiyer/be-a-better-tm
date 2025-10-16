@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   Book,
@@ -5,6 +6,7 @@ import {
   ClipboardCheck,
   Clock,
   ListChecks,
+  MessageSquare,
   Mic
 } from "lucide-react";
 import { useLocation } from "wouter";
@@ -95,6 +97,24 @@ const RoleSelection = () => {
               </Card>
             );
           })}
+        </div>
+
+        {/* Feedback Section */}
+        <div className="mt-12 text-center">
+          <Card className="p-6 bg-white/95 backdrop-blur-sm">
+            <div className="flex flex-col items-center space-y-4">
+              <MessageSquare className="h-8 w-8 text-primary" />
+              <h3 className="text-xl font-semibold text-card-foreground">
+                Have feedback or found a bug?
+              </h3>
+              <Button 
+                onClick={() => window.open('https://github.com/vgnshiyer/the-radical-tm/issues', '_blank')}
+                className="mt-2"
+              >
+                Help us improve
+              </Button>
+            </div>
+          </Card>
         </div>
       </div>
       
